@@ -147,34 +147,30 @@ function runAction(url) {
     xhr.onreadystatechange = function () {
         if (this.readyState == 4) {
             if (this.status == 200) {
-                //noinspection JSValidateTypes
-                if (this.responseText != null) {
+                var response = getObjectFromResponse(this.responseText);
 
-                    var response = getObjectFromResponse(this.responseText);
-
-                    switch (response.status) {
-                        case 'progress':
-                            document.getElementById("resultContainer").classList.add("progress");
-                            setTimeout(function () {
-                                runAction(url)
-                            }, response.timeout);
-                            break;
-                        case 'error':
-                            document.getElementById("resultContainer").classList.remove("progress");
-                            document.getElementById("resultContainer").classList.add("error");
-                            document.getElementById("resultContainer").innerHTML = response.reason;
-                            document.getElementById("submitButton").disabled = false;
-                            break;
-                        case 'success':
-                            document.getElementById("resultContainer").classList.remove("progress");
-                            document.getElementById("resultContainer").classList.add("success");
-                            document.getElementById("resultContainer").innerHTML = "Success";
-                            document.getElementById("submitButton").disabled = false;
-                            break;
-                        default:
-                            alert("в ответе неизвестный статус " + response.status);
-                            document.getElementById("submitButton").disabled = false;
-                    }
+                switch (response.status) {
+                    case 'progress':
+                        document.getElementById("resultContainer").classList.add("progress");
+                        setTimeout(function () {
+                            runAction(url)
+                        }, response.timeout);
+                        break;
+                    case 'error':
+                        document.getElementById("resultContainer").classList.remove("progress");
+                        document.getElementById("resultContainer").classList.add("error");
+                        document.getElementById("resultContainer").innerHTML = response.reason;
+                        document.getElementById("submitButton").disabled = false;
+                        break;
+                    case 'success':
+                        document.getElementById("resultContainer").classList.remove("progress");
+                        document.getElementById("resultContainer").classList.add("success");
+                        document.getElementById("resultContainer").innerHTML = "Success";
+                        document.getElementById("submitButton").disabled = false;
+                        break;
+                    default:
+                        alert("в ответе неизвестный статус " + response.status);
+                        document.getElementById("submitButton").disabled = false;
                 }
             } else {
                 alert(url + "\nresponse status " + this.status + "\n submit button is enabled");
