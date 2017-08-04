@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script type="text/javascript" src="index.js"></script>
+    <style>
+        .error {
+            border: 1px solid red
+        }
+
+        .progress {
+            border: 5px solid lightgray;
+        }
+
+        .success {
+            border: 1px solid green;
+        }
+    </style>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        function fill() {
+            MyForm.setData({
+                'fio': 'ASd as A',
+                'email': 'asd@ya.ru',
+                'phone': '+7(000)000-00-00'
+            });
+        }
+    </script>
+</head>
+<body>
+<form id="myForm"  ondblclick="fill()" onsubmit="return MyForm.submit()">
+    <p>
+        <input name="fio" placeholder="F I O">
+    </p>
+    <p>
+        <input name="email" placeholder="email">
+    </p>
+    <p>
+        <input name="phone" placeholder="+7(xxx)xxx-xx-xx">
+    </p>
+    <p><input type="submit" id="submitButton"></p>
+</form>
+<div id="resultContainer"></div>
+</body>
+</html>
+
