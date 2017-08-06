@@ -38,7 +38,7 @@ var MyForm = {
                     }
                     break;
                 case 'email':
-                    if (!isValidRegex(data[field], new RegExp(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@(ya.ru|yandex.ru|yandex.ua|yandex.by|yandex.kz|yandex.com)$/))) {
+                    if (!isValidRegex(data[field], new RegExp(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@(ya.ru|yandex.ru|yandex.ua|yandex.by|yandex.kz|yandex.com)$/i))) {
                         addInvalidField(field);
                     }
                     break;
