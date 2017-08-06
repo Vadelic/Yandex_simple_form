@@ -96,9 +96,10 @@ var MyForm = {
         var validate = this.validate();
         markErrorClass(validate.errorFields);
         if (validate.isValid) {
-            document.getElementById("resultContainer").classList.remove('error');
-            document.getElementById("resultContainer").classList.remove('success');
-            document.getElementById("resultContainer").innerHTML = "";
+            var resultContainer = document.getElementById("resultContainer");
+            resultContainer.classList.remove('error');
+            resultContainer.classList.remove('success');
+            resultContainer.innerHTML = "";
             document.getElementById("submitButton").disabled = true;
             var action = document.getElementById("myForm").action;
             runAction(action);
@@ -132,7 +133,7 @@ function runAction(url) {
         } catch (e) {
             alert("ajax не получил объект и ответ был сгенерирован случайным образом");
             var variableResponse = [
-                {"status": "progress", "timeout": 500},
+                {"status": "progress", "timeout": 5000},
                 {"status": "error", "reason": "Error message"},
                 {"status": "success"}
             ];
@@ -141,40 +142,43 @@ function runAction(url) {
         }
         return response;
     }
-
+    
+    var submitButton = document.getElementById("submitButton");
+    var resultContainer = document.getElementById("resultContainer");
+    
     var xhr = initXMLHttpRequest();
     xhr.open("GET", url, true);
     xhr.onreadystatechange = function () {
         if (this.readyState == 4) {
+            
             if (this.status == 200) {
                 var response = getObjectFromResponse(this.responseText);
-
                 switch (response.status) {
                     case 'progress':
-                        document.getElementById("resultContainer").classList.add("progress");
+                        resultContainer.classList.add("progress");
                         setTimeout(function () {
                             runAction(url)
                         }, response.timeout);
                         break;
                     case 'error':
-                        document.getElementById("resultContainer").classList.remove("progress");
-                        document.getElementById("resultContainer").classList.add("error");
-                        document.getElementById("resultContainer").innerHTML = response.reason;
-                        document.getElementById("submitButton").disabled = false;
+                        resultContainer.classList.remove("progress");
+                        resultContainer.classList.add("error");
+                        resultContainer.innerHTML = response.reason;
+                        submitButton.disabled = false;
                         break;
                     case 'success':
-                        document.getElementById("resultContainer").classList.remove("progress");
-                        document.getElementById("resultContainer").classList.add("success");
-                        document.getElementById("resultContainer").innerHTML = "Success";
-                        document.getElementById("submitButton").disabled = false;
+                        resultContainer.classList.remove("progress");
+                        resultContainer.classList.add("success");
+                        resultContainer.innerHTML = "Success";
+                        submitButton.disabled = false;
                         break;
                     default:
                         alert("в ответе неизвестный статус " + response.status);
-                        document.getElementById("submitButton").disabled = false;
+                        submitButton.disabled = false;
                 }
             } else {
                 alert(url + "\nresponse status " + this.status + "\n submit button is enabled");
-                document.getElementById("submitButton").disabled = false;
+                submitButton.disabled = false;
             }
         }
     };
