@@ -27,6 +27,19 @@ var MyForm = {
             return true;
         }
 
+        function markErrorClass(errorFields) {
+            var form = document.forms['myForm'];
+            for (var i = 0; i < form.length; i++) {
+
+                if (form[i].name != "" && errorFields.indexOf(form[i].name) != -1) {
+                    form[i].classList.add("error");
+                } else {
+                    form[i].classList.remove("error");
+                }
+            }
+        }
+
+
         var data = this.getData();
 
         for (var field in data) {
@@ -49,8 +62,9 @@ var MyForm = {
                     break;
             }
         }
-        return result;
+        markErrorClass(result.errorFields);
 
+        return result;
     }
     ,
 
@@ -81,20 +95,8 @@ var MyForm = {
     ,
 
     submit: function () {
-        function markErrorClass(errorFields) {
-            var form = document.forms['myForm'];
-            for (var i = 0; i < form.length; i++) {
-
-                if (form[i].name != "" && errorFields.indexOf(form[i].name) != -1) {
-                    form[i].classList.add("error");
-                } else {
-                    form[i].classList.remove("error");
-                }
-            }
-        }
 
         var validate = this.validate();
-        markErrorClass(validate.errorFields);
         if (validate.isValid) {
             var resultContainer = document.getElementById("resultContainer");
             resultContainer.classList.remove('error');
