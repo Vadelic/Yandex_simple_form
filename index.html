@@ -28,17 +28,19 @@
     </script>
 </head>
 <body>
-<form id="myForm"  ondblclick="fill()" onsubmit="return MyForm.submit()">
+<form id="myForm" ondblclick="fill()" onsubmit="return MyForm.submit()">
     <p>
-        <input name="fio" placeholder="F I O">
+        <input type="text" name="fio" placeholder="F I O">
     </p>
     <p>
-        <input name="email" placeholder="email">
+        <input type="text" name="email" placeholder="email">
     </p>
     <p>
-        <input name="phone" placeholder="+7(xxx)xxx-xx-xx">
+        <input type="text" name="phone" placeholder="+7(xxx)xxx-xx-xx">
     </p>
-    <p><input type="submit" id="submitButton"></p>
+    <p>
+        <input type="submit" id="submitButton">
+    </p>
 </form>
 <div id="resultContainer"></div>
 </body>
